@@ -3,7 +3,8 @@
 """
 Siemens_multicoil.py creates a siemens multicoil nifti from two input dicom.tgz.
 
-Takes sorted dicom.tgz as inputs.  Use `dicomsort.py tarsort ./mess/of/dicoms ./sort_dest ./tar_dest`.
+Takes sorted dicom.tgz as inputs.  
+Use `dicomsort.py tarsort ./mess/of/dicoms ./sort_dest ./tar_dest`.
 Writes merged nifti file to the current working directory.
 
 
@@ -21,7 +22,8 @@ combine niftis
 
 .. code-block::bash
 
-    siemens_multicoil.py ./tar/path/individual_coils_dicoms.tgz ./tar/path/combined_coils_dicoms.tgz
+    siemens_multicoil.py ./tar/path/individual_coils_dicoms.tgz \
+                         ./tar/path/combined_coils_dicoms.tgz
 
 
 """
@@ -78,6 +80,7 @@ class NiftiConcat(object):
                     first_tr = dcm_ds.tr
                 # save info to name this nifti
                 label = '%s_%s' % (dcm_ds.exam_no, dcm_ds.series_no)
+                # GLU: label = '%s' % (dcm_ds.protocol_name)
                 intermediate = os.path.join(temp_dirpath, '_%s' % label)
                 # save info to name the final output
                 if not self.outbase:

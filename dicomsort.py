@@ -82,10 +82,12 @@ def sort(args):
             print 'not a DICOM file: %s' % filepath
         else:
             if dcm.get('Manufacturer').upper() != 'SIEMENS':
-                acq_name = '%s_%s_%s_dicoms' % (dcm.StudyID, dcm.SeriesNumber, int(dcm.get('AcquisitionNumber', 1)))
+                acq_name = '%s_%s_%s_dicoms' % (dcm.SeriesDescription, dcm.SeriesNumber, int(dcm.get('AcquisitionNumber', 1)))
             else:
-                acq_name = '%s_%s_dicoms' % (dcm.StudyID, dcm.SeriesNumber)
-            acq_path = os.path.join(args.sort_path, dcm.StudyInstanceUID, acq_name)
+                # GLU: acq_name = '%s_%s_dicoms' % (dcm.StudyID, dcm.SeriesNumber)
+                acq_name = '%s_%s_dicoms' % (dcm.SeriesDescription, dcm.SeriesNumber)
+            # acq_path = os.path.join(args.sort_path, dcm.StudyInstanceUID, acq_name)
+            acq_path = os.path.join(args.sort_path, acq_name)
             if not os.path.isdir(acq_path):
                 os.makedirs(acq_path)
             new_filepath = os.path.join(acq_path, os.path.basename(filepath))
